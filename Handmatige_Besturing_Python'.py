@@ -17,7 +17,7 @@ class UltraCalDashboard(QWidget):
 
         # Serial connection
         try:
-            self.ser = serial.Serial('COM3', 9600, timeout=1)
+            self.ser = serial.Serial('COM7', 9600, timeout=1)
             time.sleep(2)
         except serial.SerialException:
             sys.exit(1)
