@@ -172,8 +172,8 @@ class UltraCalDashboard(QWidget):
         self.send_command("SET 5 FWD")
         self.send_command("POS 3 0")
         self.set_L_position_button_active(3, 0)
-        self.send_command("POS 4 210")
-        self.set_L_position_button_active(4, 210)
+        self.send_command("POS 4 200")
+        self.set_L_position_button_active(4, 200)
         QTimer.singleShot(1000, lambda: self.send_command("SET 5 STOP"))
         popup.accept()
 
@@ -183,7 +183,7 @@ class UltraCalDashboard(QWidget):
         for btn in self.active_buttons[servo]:
             label = btn.text().lower()
             if (servo == 3 and angle == 0 and "l-clear" in label) or \
-               (servo == 4 and angle == 210 and "l-clear" in label):
+               (servo == 4 and angle == 200 and "l-clear" in label):
                 btn.setStyleSheet("background-color: #ffaa00; color: black;")
             else:
                 btn.setStyleSheet("")
@@ -245,9 +245,9 @@ class UltraCalDashboard(QWidget):
         self.active_buttons[servo] = []
 
         if servo == 3:
-            pos_dict = {"Clear": 0, "Box Enter": 105, "Box Out": 210}
+            pos_dict = {"Clear": 0, "Box Enter": 110, "Box Out": 185}
         elif servo == 4:
-            pos_dict = {"Clear": 210, "Box Enter": 0, "Box Out": 110}
+            pos_dict = {"Clear": 200, "Box Enter": 10.0, "Box Out": 100}
         else:
             pos_dict = {}
 
@@ -278,7 +278,7 @@ class UltraCalDashboard(QWidget):
         self.active_buttons[servo] = [btn_fwd, btn_rev]
 
         def handle_pusher_click(btn, command):
-            if servo == 6 and self.l2_position != 210:
+            if servo == 6 and self.l2_position != 200:
                 self.log("Pusher 2 geblokkeerd: L2 staat niet op 'Weg'")
                 return
 
@@ -316,7 +316,7 @@ class UltraCalDashboard(QWidget):
 
     def update_pusher2_state(self):
         if hasattr(self, "pusher2_buttons"):
-            state = self.l2_position == 210
+            state = self.l2_position == 200
             for btn in self.pusher2_buttons:
                 btn.setEnabled(state)
                 if not state:
